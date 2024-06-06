@@ -6,10 +6,10 @@ using Verse;
 namespace Rachek128.RitualAttenuation.Patches
 {
     [HarmonyPatch(typeof(RitualOutcomeComp_NumPlayedDrums))]
-    [HarmonyPatch(nameof(RitualOutcomeComp_NumPlayedDrums.GetExpectedOutcomeDesc))]
-    static class RitualOutcomeComp_NumPlayedDrums_GetExpectedOutcomeDesc
+    [HarmonyPatch(nameof(RitualOutcomeComp_NumPlayedDrums.GetQualityFactor))]
+    static class RitualOutcomeComp_NumPlayedDrums_GetQualityFactor
     {
-        static void Postfix(RitualOutcomeComp_NumPlayedDrums __instance, TargetInfo ritualTarget, RitualRoleAssignments assignments, ref ExpectedOutcomeDesc __result)
+        static void Postfix(RitualOutcomeComp_NumPlayedDrums __instance, TargetInfo ritualTarget, RitualRoleAssignments assignments, ref QualityFactor __result)
         {
             var data = RitualExtendedDataManager.Instance.GetOrCreateFor(__instance, assignments, (d) =>
             {
@@ -24,7 +24,7 @@ namespace Rachek128.RitualAttenuation.Patches
             __result.count = $"{data.ScheduledAttendance} / {data.RequiredAttendance}";
             __result.quality = PopulationUtility.EvaluateQualityFor(data, __instance);
             __result.positive = __result.quality > 0f;
-            __result.effect = Tools.ExpectedOffsetDesc(__instance, __result.positive, __result.quality);
+            __result.qualityChange = Tools.ExpectedOffsetDesc(__instance, __result.positive, __result.quality);
         }
     }
 

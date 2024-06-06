@@ -108,7 +108,7 @@ namespace Rachek128.RitualAttenuation
         /// </summary>
         public static int GetPossibleParticipants(RitualRoleAssignments assignments, RitualOutcomeComp_ParticipantCount instance)
         {
-            return assignments.AllPawns.Count(p => ParticipantCount_Counts(instance, assignments, p));
+            return assignments.AllCandidatePawns.Count(p => ParticipantCount_Counts(instance, assignments, p));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Rachek128.RitualAttenuation
         /// </summary>
         public static int GetPossibleParticipants(RitualRoleAssignments assignments, RitualOutcomeComp_NumParticipantsWithTag instance)
         {
-            return assignments.AllPawns.Count(p => p.RaceProps.Humanlike);
+            return assignments.AllCandidatePawns.Count(p => p.RaceProps.Humanlike);
         }
 
         /// <summary>

@@ -16,10 +16,10 @@ namespace Rachek128.RitualAttenuation
         public static int GetPossiblePopulationFor(RitualRoleAssignments assignments, bool excludeFixed = false)
         {
             if (!excludeFixed)
-                return assignments.AllPawns.Count;
+                return assignments.AllCandidatePawns.Count;
 
             int count = 0;
-            foreach (var pawn in assignments.AllPawns)
+            foreach (var pawn in assignments.AllCandidatePawns)
             {
                 if (assignments.Forced(pawn) || assignments.Required(pawn))
                     continue;
@@ -76,7 +76,7 @@ namespace Rachek128.RitualAttenuation
 
         public static int GetCurrentAttendanceFor(RitualRoleAssignments assignments)
         {
-            return assignments.AllPawns.Where(x => !assignments.Forced(x) && !assignments.Required(x) && assignments.PawnParticipating(x)).Count();
+            return assignments.AllCandidatePawns.Where(x => !assignments.Forced(x) && !assignments.Required(x) && assignments.PawnParticipating(x)).Count();
         }
 
         public static int GetCurrentDrumsFor(TargetInfo ritualTarget, int maxDistance)
